@@ -3,6 +3,8 @@ title: "GCA1 - VR-based Treatment of Autism: R Notebook"
 output: html_notebook
 ---
 
+Github repository: https://github.com/RuthDooley/2025_DAIE_ICA_DMRD
+
 # Sample Calculations
 ```{r}
 # Sample Comment
