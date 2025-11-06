@@ -1,23 +1,104 @@
 ---
-title: "GCA1 - VR-based Treatment of Autism: R Notebook"
+title: "GCA1 - VR-based Treatment of Autism"
+author: "Ruth Dooley, Diego Morenza"
 output: html_notebook
 ---
 
-Github repository: https://github.com/RuthDooley/2025_DAIE_ICA_DMRD
+**GitHub Repository:** https://github.com/RuthDooley/2025_DAIE_ICA_DMRD
 
-# Sample Calculations
+---
+
+# Table of Contents
+
+1. [Abstract](#abstract)
+2. [Introduction](#introduction)
+3. [Method](#method)
+4. [Results](#results)
+5. [Discussion](#discussion)
+6. [References](#references)
+
+---
+
+# Abstract
+
+## Aim and Rationale
+
+lipsum
+
+## Participants and Setting
+
+
+## Experiment Design
+
+
+## Results Gathering
+
+
+## Findings/Implications
+
+---
+
+# Introduction
+
+## Topic and Context
+
+
+## Rationale
+
+
+## Hypothesis
+
+
+---
+
+# Method
+
+## Participants
+
 ```{r}
-# Sample Comment
-5 + 3
-10 * 2
-100 / 4
+# Example comment
+n_participants <- 30
 ```
 
-# Sample Variables
-```{r}
-x <- 10
-y <- 20
-z <- x + y
+## Design
 
-print(z)
-```
+
+## Materials
+
+
+## Procedure
+
+
+---
+
+# Results
+
+## Descriptive Statistics
+
+
+## Inferential Statistics
+
+
+## Statistical Tests
+
+
+## Magnitude and Direction of Results
+
+---
+
+# Discussion
+
+## Findings and Relation to Hypothesis
+
+
+## Comparison to Background Work
+
+
+## Limitations
+
+
+---
+
+# References
+
+1. Author, A. (Year). Title of work. *Journal Name*, volume(issue), pages.
