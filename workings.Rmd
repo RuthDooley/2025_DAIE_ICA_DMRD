@@ -1,0 +1,71 @@
+# Read in csv
+
+```{r}
+data <- read.csv("CA1_Autism_VR_Study_Data_Final.csv")
+
+# Data inspect
+head(data)
+colnames(data)
+```
+
+# Q1. Determine whether the data provided are appropriate for the test(s) available and whether any data cleaning is required.
+
+What do we need to consider:
+- Confirm study consisted of 300 patients (M=150, F=150)
+- Confirm each group 100 people
+- Confirm CBT Group (M=53, F=47)
+- Confirm Experimental (VR-based therapy) (M=48, F=52)
+- Confirm Control (no CBT, no VR) (M=59, F=41)
+- Confirm there is no missed data in any of the rows 
+
+```{r}
+# Overall sense check
+dim(data)
+str(data)
+summary(data)
+```
+```{r}
+# Confirm gender distribution (M=150, F=150)
+table(data$Gender)
+
+# Confirm group distribution
+table(data$Group)
+
+# Confirm gender distribution by group
+print(table(data$Gender[data$Group == "CBT"]))
+print(table(data$Gender[data$Group == "VR"]))
+print(table(data$Gender[data$Group == "Control"]))
+
+```
+```{r}
+# Check for missing data
+sum(is.na(data))
+sum(complete.cases(data))
+```
+
+- Confirm all of the AQ scores are between 0-50
+- Check all of the "Change_Score" = P1_Pre_Score" - "P2_Post_Score"
+- Confirm no repeated ids
+
+```{r}
+cat(range(data$P1_Pre_Score), "\n")
+cat(range(data$P2_Post_Score), "\n")
+```
+
+```{r}
+calculated_change <- data$P1_Pre_Score - data$P2_Post_Score
+correct <- sum(data$Change_Score == calculated_change)
+print(correct)
+```
+
+```{r}
+duplicates <- sum(duplicated(data[[id_column]]))
+print(duplicates)
+```
+
+## Overview
+- The gender distribution of the entire dataset does not match, spec said (M=150, F=150), in actually (M=160, F=140).
+- The gender distribution for each group CBT, VR and Control does does spec (M=53, F=47), (M=48, F=52) and (M=59, F=41).
+- Confused by the scoring ? need to check with lecturer
+
+# Q2: Formulate three hypothesis tests to be used to compare the effectiveness of the approaches used during the experiment.
