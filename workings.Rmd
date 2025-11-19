@@ -69,3 +69,28 @@ print(duplicates)
 - Confused by the scoring ? need to check with lecturer
 
 # Q2: Formulate three hypothesis tests to be used to compare the effectiveness of the approaches used during the experiment.
+
+
+Hypothesis Test 1 – Any Therapy vs Control
+H0: The mean Change_Score for participants receiving a therapy (CBT or VR) is equal to the mean for the Control group.
+H1: Participants receiving a therapy show greater improvement than the Control group.
+
+
+```{r}
+# 1) Create the column TherapyGroup with values Control (Control) and Therapy (CBT or VR)
+data$TherapyGroup <- ifelse(data$Group == "Control", "Control", "Therapy")
+print(table(data$TherapyGroup))
+
+# 2) Calculate mean for therapy and mean for control
+mean_therapy <- mean(data$Change_Score[data$TherapyGroup == "Therapy"], na.rm = TRUE)
+mean_control <- mean(data$Change_Score[data$TherapyGroup == "Control"], na.rm = TRUE)
+
+cat("Mean Therapy:", round(mean_therapy, 3), "\n")
+cat("Mean Control:", round(mean_control, 3), "\n")
+
+```
+## Overview
+-A new variable TherapyGroup was created to compare participants who received any therapy (CBT or VR) with those in the Control group.
+-The distribution of the new groups is: Therapy = 200 participants, Control = 100 participants.
+-The mean improvement (Change_Score) for the Therapy group is 14.795, while the mean improvement for the Control group is 0.01.
+-This shows that participants who received CBT or VR improved much more than those who received no treatment.Hypothesis 1 is true
