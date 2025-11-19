@@ -93,4 +93,25 @@ cat("Mean Control:", round(mean_control, 3), "\n")
 -A new variable TherapyGroup was created to compare participants who received any therapy (CBT or VR) with those in the Control group.
 -The distribution of the new groups is: Therapy = 200 participants, Control = 100 participants.
 -The mean improvement (Change_Score) for the Therapy group is 14.795, while the mean improvement for the Control group is 0.01.
--This shows that participants who received CBT or VR improved much more than those who received no treatment.Hypothesis 1 is true
+-This shows that participants who received CBT or VR improved much more than those who received no treatment. H1 is true.
+
+
+Hypothesis Test 2 – CBT vs VR
+H0: The mean improvement (Change_Score) is the same for the CBT and VR groups.
+H1: The mean improvement differs between CBT and VR.
+
+```{r}
+# 0) Check how many people used each of the therapies
+print(table(data$Group))
+# 1) Calculate mean for therapy and mean for control
+mean_cbt <- mean(data$Change_Score[data$Group == "CBT"], na.rm = TRUE)
+mean_vr <- mean(data$Change_Score[data$Group == "VR"], na.rm = TRUE)
+
+cat("Mean CBT:", round(mean_cbt, 3), "\n")
+cat("Mean VR:", round(mean_vr, 3), "\n")
+
+```
+## Overview
+-The distribution of the therapies is: CBT = 100 participants, VR = 100 participants.
+-The mean improvement for the group CBT is 10.16, while the mean improvement for the VR group is 19.43.
+-This shows that participants who received VR improved more than those who received no CBT treatment. H1 is true, they differ.
