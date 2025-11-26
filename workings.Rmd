@@ -117,7 +117,7 @@ cat("Mean Control:", round(mean_control, 3), "\n")
 ## Overview
 -A new variable TherapyGroup was created to compare participants who received any therapy (CBT or VR) with those in the Control group.
 -The distribution of the new groups is: Therapy = 200 participants, Control = 100 participants.
--The mean improvement (Change_Score) for the Therapy group is 14.795, while the mean improvement for the Control group is 0.01.
+-The mean improvement (Change_Score) for the Therapy group is 14.795, while the mean improvement for the Control group is 02.01.
 -This shows that participants who received CBT or VR improved much more than those who received no treatment in this dataset.
 
 -----------------------------------------------------------------------------------------
@@ -142,3 +142,107 @@ cat("Mean VR:", round(mean_vr, 3), "\n")
 -The mean improvement for the group CBT is 10.16, while the mean improvement for the VR group is 19.43.
 -This shows that participants who received VR improved more than those who received no CBT treatment.
 -This supports the hypothesis that the two therapies differ in effectiveness, with VR performing better in this dataset.
+
+# Q3: Determine if the data meet the assumptions required by any statistical test.
+```{r}
+# Normality
+par(mfrow = c(1, 3))
+hist(data$Change_Score[data$Group == "CBT"], 
+     main = "CBT Group", 
+     xlab = "Change Score",
+     col = "lightblue")
+
+hist(data$Change_Score[data$Group == "VR"], 
+     main = "VR Group", 
+     xlab = "Change Score",
+     col = "lightgreen")
+
+hist(data$Change_Score[data$Group == "Control"], 
+     main = "Control Group", 
+     xlab = "Change Score",
+     col = "lightcoral")
+par(mfrow = c(1, 1))
+
+```
+
+```{r}
+# Normality 0.05 check - If p > 0.05, data is normal
+
+shapiro.test(data$Change_Score[data$Group == "CBT"])
+shapiro.test(data$Change_Score[data$Group == "VR"])
+shapiro.test(data$Change_Score[data$Group == "Control"])
+
+```
+
+```{r}
+# Variances and standard deviations - If SDs are similar, variances are equal
+
+sd_cbt <- sd(data$Change_Score[data$Group == "CBT"])
+sd_vr <- sd(data$Change_Score[data$Group == "VR"])
+sd_control <- sd(data$Change_Score[data$Group == "Control"])
+
+cat("Variances:\n")
+cat("CBT:", round(var(data$Change_Score[data$Group == "CBT"]), 2), "\n")
+cat("VR:", round(var(data$Change_Score[data$Group == "VR"]), 2), "\n")
+cat("Control:", round(var(data$Change_Score[data$Group == "Control"]), 2), "\n\n")
+
+cat("Standard Deviations:\n")
+cat("CBT:", round(sd_cbt, 2), "\n")
+cat("VR:", round(sd_vr, 2), "\n")
+cat("Control:", round(sd_control, 2), "\n")
+```
+
+```{r}
+# Box plots for outliers
+boxplot(Change_Score ~ Group, data = data,
+        main = "Change Score by Group",
+        xlab = "Group",
+        ylab = "Change Score",
+        col = c("lightblue", "lightcoral", "lightgreen"))
+```
+
+```{r}
+outliers <- function(x) {
+  Q1 <- quantile(x, 0.25)
+  Q3 <- quantile(x, 0.75)
+  IQR_val <- Q3 - Q1
+  lower <- Q1 - 1.5 * IQR_val
+  upper <- Q3 + 1.5 * IQR_val
+  sum(x < lower | x > upper)
+}
+
+cat("Number of Outliers:\n")
+cat("CBT:", outliers(data$Change_Score[data$Group == "CBT"]), "\n")
+cat("VR:", outliers(data$Change_Score[data$Group == "VR"]), "\n")
+cat("Control:", outliers(data$Change_Score[data$Group == "Control"]), "\n\n")
+        col = c("lightblue", "lightcoral", "lightgreen")
+```
+
+## Overview
+The above tests demonstrated the suitability of the data to meet the assumptions required by statistical test
+- The change score feature for each group is approx symetrical and normally distributed (bell shaped). These visual assessments support the use of parametric statistical tests.
+- Statistical test for normality (p > 0.05 = normal) which is demonstrated with CBT: p = 0.3543 and VR: p = 0.3092 groups meeting the assumption of normality however produced the result of Control: p = 0.0188. Given the large sample size n = 100 and robustness of the mentioned statistical tests given priority of over assumptions, the data remains appropriate.
+- Its necessary that the groups have a similar spread deduced by the varience and SD tests. Variances: CBT = 20.36, VR = 31.1, Control = 19.81. SDs: CBT = 4.51, VR = 5.58, Control = 4.45. The largest standard deviation was less than twice the smallest (x1.25), determining adequate results indicating equal variances. Therefore homogeneity in dataset was met.
+- Outliers and extreme values in dataset should ideally be avoided. The VR group shows the highest median improvement (~19), followed by CBT (~10), while the Control group shows minimal change (~0). The boxplots reveal no extreme outliers beyond 1.5 times the interquartile range in any group. THis is further confirmed with the outlier count following this.
+
+The data met the key assumptions for the statistical tests.
+
+# Q4: Provide descriptive statistics (graphs and tables) for any assumptions made.
+The graphs supporting the assumptions made were porvided above. The remaining details can be described below in the descriptive statistics table.
+```{r}
+library(dplyr)
+
+desc_stats <- data %>%
+  group_by(Group) %>%
+  summarise(
+    N = n(),
+    Mean = round(mean(Change_Score), 2),
+    SD = round(sd(Change_Score), 2),
+    Median = median(Change_Score),
+    Min = min(Change_Score),
+    Max = max(Change_Score)
+  )
+
+print("Table 1: Descriptive Statistics by Group")
+print(desc_stats)
+```
