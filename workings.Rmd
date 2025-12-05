@@ -264,3 +264,38 @@ Hypothesis Test 3 – CBT vs VR
 Conclusion:
 VR produced considerably higher improvement than CBT.
 This supports the hypothesis that the two therapies differ in effectiveness, with VR performing better in this dataset.
+
+# Q6: Determine the 95% confidence interval for the population mean of a single group.
+
+Choose a group: "CBT", "VR", or "Control" in this Case CBT
+
+```{r}
+group <- "CBT"
+
+values <- data$Change_Score[data$Group == group]
+
+mean_val <- mean(values)
+sd_val <- sd(values)
+n <- length(values)
+
+se <- sd_val / sqrt(n)
+lower <- mean_val - 1.96 * se
+upper <- mean_val + 1.96 * se
+
+cat("95% Confidence Interval for", group, ":\n")
+cat("Mean =", round(mean_val, 2), "\n")
+cat("CI =", round(lower, 2), "to", round(upper, 2), "\n")
+```
+
+## Overview
+For the CBT group:
+
+Mean Change_Score = 10.16
+Standard deviation = 4.51
+n = 100
+
+The 95% confidence interval for the population mean improvement is:
+
+CI = 9.28 to 11.04
+
+We can be 95% confident that the true average improvement for individuals receiving CBT lies within this range.
