@@ -246,3 +246,21 @@ desc_stats <- data %>%
 print("Table 1: Descriptive Statistics by Group")
 print(desc_stats)
 ```
+# Q5: Analyze the data to provide the hypothesis testing conclusion..
+Hypothesis Test 1 – Comparison Across All Three Groups
+
+Conclusion:
+The VR group shows the highest improvement, followed by CBT, while the Control group shows almost no improvement.
+These large differences in mean Change_Score indicate that at least one group differs substantially from the others, supporting the alternative hypothesis that the three groups do not have equal mean improvement.
+
+Hypothesis Test 2 – Any Therapy vs Control
+
+Conclusion:
+Participants receiving CBT or VR improved far more than the Control group.
+The large difference in mean Change_Score strongly supports the hypothesis that therapy produces greater improvement than receiving no treatment.
+
+Hypothesis Test 3 – CBT vs VR
+
+Conclusion:
+VR produced considerably higher improvement than CBT.
+This supports the hypothesis that the two therapies differ in effectiveness, with VR performing better in this dataset.
