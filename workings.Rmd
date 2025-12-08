@@ -59,7 +59,7 @@ print(correct)
 ```
 
 ```{r}
-duplicates <- sum(duplicated(data[[id_column]]))
+duplicates <- sum(duplicated(data$ID))
 print(duplicates)
 ```
 
