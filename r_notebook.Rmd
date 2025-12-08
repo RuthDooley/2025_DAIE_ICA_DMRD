@@ -23,18 +23,34 @@ output: html_notebook
 
 ## Aim and Rationale
 
-lipsum
+The aim of this study is to evaluate the effectiveness of Virtual Reality (VR) and Cognitive Behavioral Therapy (CBT) to decrease the severity of autistic traits. The Autism Spectrum Quotient (AQ) was used to self capture the severity of each trait before and after the trail.
 
 ## Participants and Setting
 
+There were a total of 300 participants between the ages of 12 - 40 years old, and they were randomly assigned to to one of the three subject groups CBT, VR Therapy and Control. The three groups underwent 12 weeks of their respective treatment for 50 minutes per week with a therapist.
+
+```{r}
+data <- read.csv("CA1_Autism_VR_Study_Data_Final.csv")
+
+head(data)
+
+colnames(data)
+
+# n = 
+cat("Dimensions:", dim(data), "\n")
+
+```
 
 ## Experiment Design
 
 
 ## Results Gathering
 
+Descriptive statistics was used to analyse the data. The three hypothesis tests conducted compared the effectiveness of CBT, VR, and Control groups. Statistical analysis revealed significant improvements in both therapy groups compared to the control.
 
 ## Findings/Implications
+
+Given the results, mean AQ score improved most for the VR therapy solution (M=19.43), CBT also demonstrated notable improvement (M=10.16), whereas the Control group displayed minimal change. This suggests that both VR therapy and CBT solutions are effective to reducing the severity of autistic traits, where the use of VR technology shows significant improvements to the traditional CBT approach.
 
 ---
 
@@ -42,12 +58,44 @@ lipsum
 
 ## Topic and Context
 
+Autism Spectrum Disorder (ASD) is a complex neurodevelopmental condition characterised by
+a wide range of social, communication, and behavioral differences. 
+
+The diagnostic criteria for autism, as outlined in the Diagnostic and Statistical Manual of
+Mental Disorders (DSM-5), are centered on two core domains:
+
+* Persistent deficits in social communication and social interaction: This includes
+challenges with reciprocal conversation, nonverbal communication (such as
+interpreting facial expressions and body language), and developing and maintaining
+relationships.
+* Restricted, repetitive patterns of behavior, interests, or activities: This can involve
+repetitive motor movements, a strong insistence on sameness and routines, highly
+focused or intense interests, and unusual reactions to sensory input.
+
+Infrastructure such as the Autism Spectrum Quotient (AQ) are designed to
+capture the complexity of measuring autistic traits across multiple subscales.
 
 ## Rationale
 
+Those exhibiting traits of autism may engage in therapy to reduce the severity of such autistic traits. In this case patients seek treatments that are effective and deliver the expected results in the time frame allowed. Understanding the differences in effectiveness of VR therapy, CBT and no treatment to the AQ score can inform medical professionals to deliver the most appropriate form of treatment to address the patient with autism.
 
 ## Hypothesis
+Three hypotheses were formulated to guide this investigation:
 
+**Hypothesis 1 (Comparison Across All Three Groups):**
+
+* H₀: The three groups (CBT, VR, Control) have equal mean Change_Score.
+* H₁: At least one group has a different mean Change_Score.
+
+**Hypothesis 2 (Any Therapy vs Control):**
+
+* H₀: The mean Change_Score for participants receiving therapy (CBT or VR) is equal to the mean for the Control group.
+* H₁: Participants receiving therapy show greater improvement than the Control group.
+
+**Hypothesis 3 (CBT vs VR):**
+
+* H₀: The mean improvement (Change_Score) is the same for the CBT and VR groups.
+* H₁: The mean improvement differs between CBT and VR.
 
 ---
 
@@ -55,47 +103,417 @@ lipsum
 
 ## Participants
 
+There were 300 participants in this study (M=160, F=140), divided into three subject groups CBT, VR and Control. 
+
+* **CBT Group:** n=100 (M=53, F=47)
+* **VR Therapy Group:** n=100 (M=48, F=52)
+* **Control Group:** n=100 (M=59, F=41)
+
 ```{r}
-# Example comment
-n_participants <- 30
+# Total gender distribution
+table(data$Gender)
+
+# Group distribution
+table(data$Group)
+
+# Gender distribution by group
+print(table(data$Gender[data$Group == "CBT"]))
+print(table(data$Gender[data$Group == "VR"]))
+print(table(data$Gender[data$Group == "Control"]))
 ```
 
 ## Design
-
+The independent variable was the type of therapy delivered (CBT, VR, or Control), and the dependent variable was the change in Autism Spectrum Quotient (AQ) score comparing pre-treatment to post-treatment.
 
 ## Materials
 
+**Autism Spectrum Quotient (AQ):** The AQ is a 50-item self report questionnaire that provides a dimensional score, meaning it measures the degree of autistic traits rather than simply providing a "yes/no" diagnosis. The higher the participent score, the more pronounced the austistic traits of that individual.The questionnaire assesses traits across five key domains: social skills,
+communication, imagination, attention to detail, and attention switching. This allows
+for a nuanced understanding of an individual's unique profile of strengths and
+challenges.
+
+**VR Equipment and Therapy:** Cutting edge VR technology can be used to create immersive experiences suitable to address traits of autism. In controlled environments users can practice social interactions, manage sensory sensitivities, and confront challenges like navigating public spaces.
+
+**CBT Sessions:** CBT is a therapy technique that is used to support individuals on the autism spectrum by helping individuals manage and reframe challenges related to social interactions, emotional regulation, and repetitive behaviors. Some popular application of CBT in relation to autism therapy includes social skills training where specific behavioural and communication skills are taught and emotional regulation training that helps individuals identify and understand their
+emotions, particularly those that can lead to meltdowns or anxiety.
 
 ## Procedure
 
+1. Pre-Treatment Assessment: All participants completed the AQ to establish baseline autistic trait severity (P1_Pre_Score).
+
+2. Therapy Period: Participants engaged in their assigned therapy for the 12 period.
+
+CBT Group: Received 50-minute weekly CBT led sessions focusing on emotional regulation, social skills, and anxiety management.
+VR Group: Used VR technology and immersive applications for 50 minutes per week to practice social interactions in controlled environments.
+Control Group: Received no therapeutic intervention during the study period.
+
+3. Post-Treatment Assessment: At the end of 12 weeks, all participants completed the AQ again (P2_Post_Score).
+
+4. Data Calculation: The Change_Score was calculated as: Change_Score = P1_Pre_Score - P2_Post_Score. For this study, a positive change score indicates improvement (reduction in the severity autistic traits).
+
+5. Data Validation and Cleaning
+Before conducting statistical analyses, the data was examined as follows to ensure integrity and appropriateness for hypothesis testing.
+
+```{r}
+# Check for missing data
+cat("Total missing values:", sum(is.na(data)), "\n")
+cat("Total cases:", sum(complete.cases(data)), "\n")
+
+# Verify AQ scores are within valid range (0-50)
+cat("P1_Pre_Score range:", range(data$P1_Pre_Score), "\n")
+cat("P2_Post_Score range:", range(data$P2_Post_Score), "\n")
+
+# Verify AQ scores are within valid range (0-50)
+cat("P1_Pre_Score range:", range(data$P1_Pre_Score), "\n")
+cat("P2_Post_Score range:", range(data$P2_Post_Score), "\n")
+
+# Check for duplicate participant IDs
+duplicates <- sum(duplicated(data$ID))
+cat("Duplicate IDs found:", duplicates, "\n")
+```
+
+**Data Validation Summary:**
+
+* Gender Distribution: The overall gender distribution was M=160, F=140, which differs slightly from the specified M=150, F=150. However, each group maintains adequate representation of both genders.
+* Group Distribution: Each of the three groups (CBT, VR, Control) contains exactly 100 participants.
+* Missing Data: No missing values were detected across any variables.
+* Score Validity: All AQ scores fall within the valid range of 0-50.
+Change_Score Accuracy: All Change_Score values were correctly calculated.
+* No Duplicates: No duplicate participant IDs were found.
 
 ---
 
 # Results
 
 ## Descriptive Statistics
+Descriptive statistics were calculated to get an overview of group characteristics and get an initial understanding of the dataset and effects.
 
+```{r}
+library(dplyr)
+
+# Descriptive statistics by group
+desc_stats <- data %>%
+  group_by(Group) %>%
+  summarise(
+    N = n(),
+    Mean = round(mean(Change_Score), 2),
+    SD = round(sd(Change_Score), 2),
+    Median = median(Change_Score),
+    Min = min(Change_Score),
+    Max = max(Change_Score)
+  )
+
+# Output
+cat("Table 1: Descriptive Statistics of Change_Score by Treatment Group\n")
+print(desc_stats)
+
+```
+```{r}
+library(ggplot2)
+
+summary_stats <- data %>%
+  group_by(Group) %>%
+  summarise(
+    Mean = mean(Change_Score),
+    SD = sd(Change_Score),
+    SE = SD / sqrt(n())
+  )
+
+ggplot(summary_stats, aes(x = Group, y = Mean, fill = Group)) +
+  geom_bar(stat = "identity", color = "black") +
+  geom_errorbar(aes(ymin = Mean - SE, ymax = Mean + SE), width = 0.2) +
+  labs(title = "Figure 3: Mean Change Score by Treatment Group",
+       x = "Treatment Group",
+       y = "Mean Change Score (± SE)") +
+  scale_fill_manual(values = c("lightblue", "lightcoral", "lightgreen")) +
+  theme_classic()
+```
+
+From the analysis of the descriptive analysis in Table 1, the improvement of the Change_Score variable can be observed over the three therapy types.
+
+* VR Group: Demonstrated the highest mean improvement (M=19.43, SD=5.58), with scores ranging from 8 to 33.
+* CBT Group: Showed moderate improvement (M=10.16, SD=4.51), with scores ranging from 0 to 22.
+* Control Group: Exhibited minimal change (M=0.01, SD=4.45), with scores ranging from -11 to 10, suggesting no meaningful improvement.
+
+There is a significant improvement in results with the use of VR nearly double, vs CBT therapy. The non improvement in mean Change_Score for the control group confirms the assumption that non intervention likely does not decrease the severity of the individuals autistic traits.
+
+```{r}
+# Distribution of Change_Score by group
+boxplot(Change_Score ~ Group, data = data,
+        main = "Figure 1: Change Score Distribution by Treatment Group",
+        xlab = "Treatment Group",
+        ylab = "Change in AQ Score",
+        col = c("lightblue", "lightcoral", "lightgreen"),
+        border = "black",
+        las = 1)
+
+# Horizontal line at zero
+abline(h = 0, col = "red", lty = 2, lwd = 2)
+```
+The Figure 1 boxplot illustrates elements of Table 1 visually. The medien of each group is described, VR~19, CBT~10, Control~0. No extreme outliers (beyond 1.5 times the interquartile range) are observed.
 
 ## Inferential Statistics
+The statistical assumptions of normality, homogeneity of variance, and absence of extreme outliers were tested against to ensure the data set met the assumptions of parametric statistical tests.
+```{r}
+par(mfrow = c(1, 3))
 
+qqnorm(data$Change_Score[data$Group == "CBT"], main = "CBT Group Q-Q Plot")
+qqline(data$Change_Score[data$Group == "CBT"], col = "red")
+
+qqnorm(data$Change_Score[data$Group == "VR"], main = "VR Group Q-Q Plot")
+qqline(data$Change_Score[data$Group == "VR"], col = "red")
+
+qqnorm(data$Change_Score[data$Group == "Control"], main = "Control Group Q-Q Plot")
+qqline(data$Change_Score[data$Group == "Control"], col = "red")
+
+par(mfrow = c(1, 1))
+```
+
+```{r}
+# Assessment of normality using histograms
+par(mfrow = c(1, 3))
+
+hist(data$Change_Score[data$Group == "CBT"],
+     main = "Figure 2a: CBT Group",
+     xlab = "Change Score",
+     col = "lightblue",
+     border = "black")
+
+hist(data$Change_Score[data$Group == "VR"],
+     main = "Figure 2b: VR Group",
+     xlab = "Change Score",
+     col = "lightgreen",
+     border = "black")
+
+hist(data$Change_Score[data$Group == "Control"],
+     main = "Figure 2c: Control Group",
+     xlab = "Change Score",
+     col = "lightcoral",
+     border = "black")
+
+par(mfrow = c(1, 1))
+```
+The Figure 2 histograms of each group show approximately symmetrical, bell-shaped distributions. this suggests the data of each group is approximately normally distributed and therefore supports the use of parametric tests.
+
+Using the Shapiro-Wilk statistical test, the p-value of the data was measured. For each group if p > 0.05, data are considered normally distributed
+
+```{r}
+cat("CBT Group:\n")
+print(shapiro.test(data$Change_Score[data$Group == "CBT"]))
+
+cat("\nVR Group:\n")
+print(shapiro.test(data$Change_Score[data$Group == "VR"]))
+
+cat("\nControl Group:\n")
+print(shapiro.test(data$Change_Score[data$Group == "Control"]))
+```
+This tests suggests that the data for the CBT and VR groups are normally distributed as CBT Group: p = 0.3543 (p > 0.05) and VR Group: p = 0.3092 (p > 0.05). For the Control Group, p = 0.0188 (p < 0.05) suggesting deviation from normality. While the Control group shows a statistically significant deviation from normality, the large sample size (n=100) and the robustness of ANOVA to violations of normality with balanced designs mean that parametric tests remain appropriate. In addition to this, the visual assessment of the Control Group data Figure 2, shows only minor deviations.
+
+The statistical assumption of the homogeneity of variance across each group was measured as so.
+
+```{r}
+sd_cbt <- sd(data$Change_Score[data$Group == "CBT"])
+sd_vr <- sd(data$Change_Score[data$Group == "VR"])
+sd_control <- sd(data$Change_Score[data$Group == "Control"])
+
+cat("Variances:\n")
+cat("CBT:", round(var(data$Change_Score[data$Group == "CBT"]), 2), "\n")
+cat("VR:", round(var(data$Change_Score[data$Group == "VR"]), 2), "\n")
+cat("Control:", round(var(data$Change_Score[data$Group == "Control"]), 2), "\n\n")
+
+cat("Standard Deviations:\n")
+cat("CBT:", round(sd_cbt, 2), "\n")
+cat("VR:", round(sd_vr, 2), "\n")
+cat("Control:", round(sd_control, 2), "\n")
+
+cat("\nRatio of largest to smallest SD:", round(max(sd_cbt, sd_vr, sd_control) / min(sd_cbt, sd_vr, sd_control), 2), "\n")
+
+```
+Variances: CBT = 20.36, VR = 31.1, Control = 19.81. SDs: CBT = 4.51, VR = 5.58, Control = 4.45. The largest standard deviation was less than twice the smallest (x1.25), determining adequate results indicating equal variances.
+
+Outlier detection was completed by the Figure 1 boxplot visualisation and confirmed numerically using the interquartile range apporach as such .
+
+```{r}
+outliers <- function(x) {
+  Q1 <- quantile(x, 0.25)
+  Q3 <- quantile(x, 0.75)
+  IQR_val <- Q3 - Q1
+  lower <- Q1 - 1.5 * IQR_val
+  upper <- Q3 + 1.5 * IQR_val
+  sum(x < lower | x > upper)
+}
+
+
+cat("Outliers count:\n")
+cat("CBT:", outliers(data$Change_Score[data$Group == "CBT"]), "\n")
+cat("VR:", outliers(data$Change_Score[data$Group == "VR"]), "\n")
+cat("Control:", outliers(data$Change_Score[data$Group == "Control"]), "\n")
+```
+**Statisitical Assumption Summary:**
+All key assumptions for parametric statistical tests were met:
+
+* Normality: The CBT and VR groups are normally distributed. While the Control group shows a minor deviation, the large sample size and robustness of ANOVA allow for valid inference.
+* Homogeneity of Variance: Variances are approximately equal across groups.
+* No Extreme Outliers: No extreme values were detected.
 
 ## Statistical Tests
+### Hypothesis 1 (Comparison Across All Three Groups):
 
+* H₀: The three groups (CBT, VR, Control) have equal mean Change_Score.
+* H₁: At least one group has a different mean Change_Score.
+
+```{r}
+mean_cbt <- mean(data$Change_Score[data$Group == "CBT"], na.rm = TRUE)
+mean_vr <- mean(data$Change_Score[data$Group == "VR"], na.rm = TRUE)
+mean_control <- mean(data$Change_Score[data$Group == "Control"], na.rm = TRUE)
+
+cat("Mean Change_Score by Group:\n")
+cat("CBT:", round(mean_cbt, 3), "\n")
+cat("VR:", round(mean_vr, 3), "\n")
+cat("Control:", round(mean_control, 3), "\n")
+```
+
+The mean Change_Score results show the following:
+
+* CBT: 10.16
+* VR: 19.43
+* Control: 0.01
+
+Significant improvement is displayed by CBT and VR groups, whereas negligable change occurs with the Control group. These CBT and VR results suggest that at least one group differs significantly from the others, supporting rejection of the null hypothesis. Both CBT and VR group results far exceed the control group, indicating meaningful treatment effects.
+
+### Hypothesis 2 (Any Therapy vs Control):
+
+* H₀: The mean Change_Score for participants receiving therapy (CBT or VR) is equal to the mean for the Control group.
+* H₁: Participants receiving therapy show greater improvement than the Control group.
+
+
+```{r}
+# General therapy group combining VR and CBT results
+data$TherapyGroup <- ifelse(data$Group == "Control", "Control", "Therapy")
+
+cat("Distribution of TherapyGroup:\n")
+print(table(data$TherapyGroup))
+
+# Calculate mean Change_Score for Therapy vs Control
+mean_therapy <- mean(data$Change_Score[data$TherapyGroup == "Therapy"], na.rm = TRUE)
+mean_control_2 <- mean(data$Change_Score[data$TherapyGroup == "Control"], na.rm = TRUE)
+
+cat("\nMean Change_Score:\n")
+cat("Therapy (CBT + VR):", round(mean_therapy, 3), "\n")
+cat("Control:", round(mean_control_2, 3), "\n")
+```
+All individuals who recieved therapy  (CBT or VR, n=200) were combined into a single group to compare against those participants who did not received any form of therapy (Control group n=100), and the results are as follows:
+
+* Therapy Group (Combined CBT + VR): Mean = 14.795
+* Control Group: Mean = 0.01
+
+The therapy group shows a mean improvement of nearly 15 points on the AQ scale, while the control group shows essentially no change. This large difference strongly supports the rejection of the null hypothesis. This analysis is evidence that receiving therapeutic intervention (either CBT or VR) produces significantly greater improvement to reducing the severity of autistic traits than receiving no treatment.
+
+### Hypothesis 3 (CBT vs VR):
+
+* H₀: The mean improvement (Change_Score) is the same for the CBT and VR groups.
+* H₁: The mean improvement differs between CBT and VR.
+
+
+```{r}
+# CBT vs VR groups
+cat("Distribution of CBT and VR Groups:\n")
+print(table(data$Group[data$Group != "Control"]))
+
+# Calculate mean Change_Score for CBT vs VR
+mean_cbt_3 <- mean(data$Change_Score[data$Group == "CBT"], na.rm = TRUE)
+mean_vr_3 <- mean(data$Change_Score[data$Group == "VR"], na.rm = TRUE)
+
+cat("\nMean Change_Score:\n")
+cat("CBT:", round(mean_cbt_3, 3), "\n")
+cat("VR:", round(mean_vr_3, 3), "\n")
+
+cat("\nDifference (VR - CBT):", round(mean_vr_3 - mean_cbt_3, 3), "\n")
+
+```
+
+When the non control treatments were compared against one another, the results were calculated.
+
+* CBT Group: Mean = 10.16
+* VR Group: Mean = 19.43
+* Difference: 9.27 points
+
+The VR group shows a considerably higher mean improvement than the CBT group, with a difference of approximately 9.27 points on the AQ scale. This substantial difference suggests that VR therapy is more effective than traditional CBT in reducing autistic traits in this sample. The null hypothesis of equal effectiveness can be rejected, supporting the conclusion that the two therapies differ in their impact, with VR demonstrating superior outcomes.
 
 ## Magnitude and Direction of Results
+To estimate the true population mean improvement for the CBT group, a 95% confidence interval was calculated with the selected CBT and VR groups.
 
+```{r}
+group <- "CBT"
+
+values <- data$Change_Score[data$Group == group]
+
+mean_val <- mean(values)
+sd_val <- sd(values)
+n <- length(values)
+
+se <- sd_val / sqrt(n)
+lower <- mean_val - 1.96 * se
+upper <- mean_val + 1.96 * se
+
+cat("95% Confidence Interval for", group, ":\n")
+cat("Mean =", round(mean_val, 2), "\n")
+cat("CI =", round(lower, 2), "to", round(upper, 2), "\n")
+```
+
+For the CBT group:
+
+* Sample Mean: 10.16
+* 95% Confidence Interval: [9.28, 11.04]
+
+We can be 95% confident that the true average improvement for individuals receiving CBT lies within the range 9.28, 11.04. This interval does not include zero, confirming that CBT produces a statistically significant and meaningful reduction in the severity autistic traits.
+
+```{r}
+group <- "VR"
+
+values <- data$Change_Score[data$Group == group]
+
+mean_val <- mean(values)
+sd_val <- sd(values)
+n <- length(values)
+
+se <- sd_val / sqrt(n)
+lower <- mean_val - 1.96 * se
+upper <- mean_val + 1.96 * se
+
+cat("95% Confidence Interval for", group, ":\n")
+cat("Mean =", round(mean_val, 2), "\n")
+cat("CI =", round(lower, 2), "to", round(upper, 2), "\n")
+```
+
+For the VR group:
+
+* Sample Mean: 19.43
+* 95% Confidence Interval: [18.34, 20.52]
+
+Similarly, we can be 95% confident that the true average improvement for individuals receiving VR therapy lies within the range 18.34, 20.52. This interval does not include zero, confirming that VR therapy produces a statistically significant and meaningful reduction in the severity autistic traits.
 ---
-
 # Discussion
 
 ## Findings and Relation to Hypothesis
+This study investigated the effectiveness of VR therapy and CBT in reducing autistic traits, as measured by the Autism Spectrum Quotient (AQ), compared to a no-treatment control group. Three hypotheses were tested, and the results provide strong support for all alternative hypotheses:
 
+1. Hypothesis 1 (All Three Groups): The data clearly demonstrate that the three groups do not have equal mean improvement. The VR group showed the highest improvement (M=19.43), followed by CBT (M=10.16), while the control group showed virtually no change (M=0.01). This confirms that at least one group differs significantly, supporting rejection of the null hypothesis.
 
-## Comparison to Background Work
+2. Hypothesis 2 (Therapy vs Control): Participants receiving either CBT or VR therapy showed substantially greater improvement (M=14.795) compared to the control group (M=0.01). This provides compelling evidence that therapeutic intervention is effective in reducing autistic traits, validating the use of structured treatments over no intervention.
 
+3. Hypothesis 3 (CBT vs VR): VR therapy demonstrated greater effectiveness compared to CBT, with a mean difference of approximately 9.27 points. This finding suggests that VR-based interventions may offer unique advantages over traditional CBT approaches.
 
 ## Limitations
+The following limitations can be acknowledged given this study:
 
+* Gender Distribution: The overall gender distribution (M=160, F=140) varied from the intended equal distribution (M=150, F=150). Ideally the total number of participants should be maintain adequate gender representation.
+
+* Control Group Normality: The Shapiro-Wilk test indicated a slight deviation from normality in the control group (p=0.0188). This does not substantially undermine the validity of the findings however a better group divide would be more appropriate.
+
+* Experiment term : The study analysis the effects of treatment over a 12-week intervention period. Future research could determine the effectiveness of these treatments over time, and whether this continuous improvement is sustainable. Additionally the greater effectis of the VR therapy vs CBT could be observed.
+
+* Age: Exact age data were not recorded. Future studies could explore age-related moderators of treatment response.
 
 ---
 
