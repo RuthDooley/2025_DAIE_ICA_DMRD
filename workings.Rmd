@@ -66,7 +66,6 @@ print(duplicates)
 ## Overview
 - The gender distribution of the entire dataset does not match, spec said (M=150, F=150), in actually (M=160, F=140).
 - The gender distribution for each group CBT, VR and Control does does spec (M=53, F=47), (M=48, F=52) and (M=59, F=41).
-- Confused by the scoring ? need to check with lecturer
 
 # Q2: Formulate three hypothesis tests to be used to compare the effectiveness of the approaches used during the experiment.
 
@@ -91,7 +90,7 @@ cat("Mean Control:", round(mean_control, 3), "\n")
 -The distribution of the therapies is: CBT = 100 participants, VR = 100 participants, Control = 100 participants.
 -The mean improvement for the group CBT is 10.16, the mean improvement for the VR group is 19.43 and the mean improvement for the Control group is 0.01.
 -This shows that participants who received VR and CBT treatments improved more than those who received no treatment.
--This supports the hypothesis that that participants who received CBT or VR improved much more than those who received no treatment in this dataset.
+-This supports the hypothesis that participants who received CBT or VR improved much more than those who received no treatment in this dataset.
 
 
 -----------------------------------------------------------------------------------------
